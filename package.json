@@ -14,5 +14,9 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.8",
     "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "babel-node": "babel-node --presets='@babel/preset-env'",
+    "dev": "nodemon --exec npm run babel-node -- src/server.js"
   }
 }
