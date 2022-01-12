@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 
 import healthCheck from './healthCheck';
+import notImplemented from './notImplemented';
 import routes from '../routes';
 
 
@@ -23,6 +24,7 @@ export default function api(port) {
     server.use(morgan('combined'));
     server.use('/healthz', healthCheck);
     server.use('/api', routes);
+    server.all('*', notImplemented);
 
     server.listen(port, callback);
   });
