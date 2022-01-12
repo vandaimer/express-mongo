@@ -16,7 +16,7 @@ export default class Delivery {
   }
 
   static post(data) {
-    const schema = DeliveryValidator.genericSchema();
-    return DeliveryValidator.validate(schema, data);
+    const schema = Delivery.genericSchema();
+    return Delivery.validate(schema, data);
   }
 }
