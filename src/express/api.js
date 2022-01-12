@@ -3,6 +3,8 @@ import morgan from 'morgan';
 import express from 'express';
 import cors from 'cors';
 
+import routes from '../routes';
+
 
 export default function api(port) {
   return new Promise((resolve, reject) => {
@@ -18,11 +20,7 @@ export default function api(port) {
     server.use(bodyParser.json());
     server.use(cors());
     server.use(morgan('combined'));
-
-    server.get('/', function (req, res) {
-      res.send('-->hello world ' + Date.now());
-    })
-
+    server.use('/api', routes);
 
     server.listen(port, callback);
   });
