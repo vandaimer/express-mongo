@@ -4,10 +4,10 @@ export default class Delivery {
   static genericSchema() {
     return Joi.object()
       .keys({
-        startDate: Joi.string().required(),
-        endDate: Joi.string().required(),
-        minCount: Joi.string().required(),
-        maxCount: Joi.string().required(),
+        startDate: Joi.date().required(),
+        endDate: Joi.date().required(),
+        minCount: Joi.number().integer().required(),
+        maxCount: Joi.number().integer().required(),
       });
   }
 
