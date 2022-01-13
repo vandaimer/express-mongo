@@ -17,6 +17,17 @@ class Delivery {
       }
     }
 
+
+  static buildTotalCount (deliveries) {
+    return deliveries.map(({ counts, ...rest }) => {
+      const totalCount = counts.reduce((previousValue, currentValue) => (previousValue + currentValue));
+      return {
+        ...rest,
+        totalCount,
+      };
+    });
+  }
+
   static filterByMinCount(deliveries, minCount) {
     return deliveries.filter(delivery => delivery.totalCount >= minCount);
   }
