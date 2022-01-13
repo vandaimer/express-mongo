@@ -1,12 +1,10 @@
 import api from './express/api';
-import { connectDB } from './database';
+import mongoConnection from './database/mongodb';
 
 const port = process.env.PORT || 3000;
-const mongoURI = process.env.MONGO_URI || '';
 
-connectDB(mongoURI)
+mongoConnection.open()
   .then(client => {
-    client.close();
     return api(port);
   })
   .then(() => {
