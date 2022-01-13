@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import delivery from './delivery';
-import Errors from './errors';
+import ResponseCode from './responseCode';
 
 const router = Router();
 
 router.use('/delivery', delivery);
 
-export { Errors };
+export { ResponseCode };
 export default router;

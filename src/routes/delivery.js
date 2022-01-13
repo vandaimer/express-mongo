@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import Delivery from '../core/Delivery';
-import { Errors } from './';
+import { ResponseCode } from './';
 
 const router = Router();
 
@@ -14,9 +14,9 @@ router.post('/', async (req, res) => {
 
   try {
     const result = Delivery.getDeliveries(req);
-    return res.status(200).json(result);
+    return res.status(200).json(results);
   } catch ({ message: msg }) {
-    const response = { ...defaultResponse, code: Errors.INVALID_PAYLOAD, msg };
+    const response = { ...defaultResponse, code: ResponseCode.INVALID_PAYLOAD, msg };
     return res.status(400).json(response);
   }
 });
