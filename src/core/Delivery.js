@@ -11,11 +11,7 @@ class Delivery {
     const { error, value: { startDate, endDate, minCount, maxCount } } = DeliveryValidator.post(body);
 
     if (error) {
-      return {
-        "code": 1,
-        "msg": error.message,
-        "results": [],
-      }
+      throw new Error(error.message);
     }
 
     let deliveries = DeliveryCollection.getByStartDate(startDate);
