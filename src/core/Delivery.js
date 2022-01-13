@@ -20,7 +20,15 @@ class Delivery {
     deliveries = Delivery.filterByMinCount(deliveries, minCount);
     deliveries = Delivery.filterByMaxCount(deliveries, maxCount);
 
-    return deliveries;
+    return Delivery.buildResponse(deliveries);
+  }
+
+  static buildResponse(deliveries) {
+    return deliveries.map(({ key, createdAt, totalCount }) => ({
+      key,
+      createdAt,
+      totalCount,
+    }));
   }
 
   static buildTotalCount (deliveries) {
