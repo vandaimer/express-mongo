@@ -1,4 +1,5 @@
 import { DeliveryValidator } from '../validators';
+import { DeliveryCollection } from '../database';
 
 
 class Delivery {
@@ -7,7 +8,7 @@ class Delivery {
       body,
     } = req;
 
-    const { error, value } = DeliveryValidator.post(body);
+    const { error, value: { startDate, endDate, minCount, maxCount } } = DeliveryValidator.post(body);
 
     if (error) {
       return {
@@ -17,6 +18,14 @@ class Delivery {
       }
     }
 
+    let deliveries = DeliveryCollection.getByStartDate(startDate);
+
+    deliveries = Delivery.buildTotalCount(deliveries);
+    deliveries = Delivery.filterByMinCount(deliveries, minCount);
+    deliveries = Delivery.filterByMaxCount(deliveries, maxCount);
+
+    return deliveries;
+  }
 
   static buildTotalCount (deliveries) {
     return deliveries.map(({ counts, ...rest }) => {
@@ -32,6 +41,8 @@ class Delivery {
     return deliveries.filter(delivery => delivery.totalCount >= minCount);
   }
 
+  static filterByMaxCount(deliveries, maxCount) {
+    return deliveries.filter(delivery => delivery.totalCount <= maxCount);
   }
 }
 
