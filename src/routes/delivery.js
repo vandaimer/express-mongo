@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
   };
 
   try {
-    const records = Delivery.getDeliveries(req);
+    const records = await Delivery.getDeliveries(req);
     const response = {
       code: ResponseCode.SUCCESS,
       msg: "Success", // I will improve it later. Need to move to another place as I did for the Responde Codes.

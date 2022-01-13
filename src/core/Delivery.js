@@ -3,7 +3,7 @@ import { DeliveryCollection } from '../database';
 
 
 class Delivery {
-  static getDeliveries(req) {
+  static async getDeliveries(req) {
     const {
       body,
     } = req;
@@ -14,7 +14,7 @@ class Delivery {
       throw new Error(error.message);
     }
 
-    let deliveries = DeliveryCollection.getByStartDate(startDate);
+    let deliveries = await DeliveryCollection.getByStartDate(startDate, endDate);
 
     deliveries = Delivery.buildTotalCount(deliveries);
     deliveries = Delivery.filterByMinCount(deliveries, minCount);
