@@ -1,8 +1,12 @@
-import Joi from 'joi';
+import JoiBase from 'joi';
+import JoiDate from '@joi/date';
+
+const Joi = JoiBase.extend(JoiDate);
 
 export default class Delivery {
   static genericSchema() {
-    return Joi.object()
+    return Joi
+      .object()
       .keys({
         startDate: Joi.date().format('YYYY.MM.DD').required(),
         endDate: Joi.date().format('YYYY.MM.DD').required(),
