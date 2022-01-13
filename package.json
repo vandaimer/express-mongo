@@ -13,6 +13,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.8",
     "@babel/core": "^7.16.7",
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.8",
@@ -21,6 +22,7 @@
   },
   "scripts": {
     "babel-node": "babel-node --presets='@babel/preset-env'",
-    "dev": "nodemon --exec npm run babel-node -- src/server.js"
+    "dev": "nodemon --exec npm run babel-node -- src/server.js",
+    "build": "babel src --ignore __tests__,__mocks__ -d dist"
   }
 }
