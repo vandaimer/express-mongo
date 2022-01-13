@@ -9,12 +9,17 @@ router.post('/', async (req, res) => {
   const defaultResponse = {
     code: '',
     msg: '',
-    result: []
+    records: []
   };
 
   try {
-    const result = Delivery.getDeliveries(req);
-    return res.status(200).json(results);
+    const records = Delivery.getDeliveries(req);
+    const response = {
+      code: ResponseCode.SUCCESS,
+      msg: "Success", // I will improve it later. Need to move to another place as I did for the Responde Codes.
+      records,
+    }
+    return res.status(200).json(response);
   } catch ({ message: msg }) {
     const response = { ...defaultResponse, code: ResponseCode.INVALID_PAYLOAD, msg };
     return res.status(400).json(response);
