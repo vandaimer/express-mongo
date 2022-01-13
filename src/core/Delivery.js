@@ -16,6 +16,11 @@ class Delivery {
         "results": [],
       }
     }
+
+  static filterByMinCount(deliveries, minCount) {
+    return deliveries.filter(delivery => delivery.totalCount >= minCount);
+  }
+
   }
 }
 
