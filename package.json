@@ -23,6 +23,7 @@
   "scripts": {
     "babel-node": "babel-node --presets='@babel/preset-env'",
     "dev": "nodemon --exec npm run babel-node -- src/server.js",
-    "build": "babel src --ignore __tests__,__mocks__ -d dist"
+    "build": "babel src --ignore __tests__,__mocks__ -d dist",
+    "start": "node dist/server.js"
   }
 }
