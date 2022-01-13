@@ -4,9 +4,7 @@ import mongoConnection from './database/mongodb';
 const port = process.env.PORT || 3000;
 
 mongoConnection.open()
-  .then(client => {
-    return api(port);
-  })
+  .then(() => api(port))
   .then(() => {
     // eslint-disable-next-line no-console
     console.info(`Server running. See http://localhost:${port}`);
