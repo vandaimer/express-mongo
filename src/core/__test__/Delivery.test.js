@@ -31,7 +31,7 @@ describe('core.Delivery', () => {
     expect(result).toStrictEqual(expected);
   });
 
-  it('shouild sum the count list', () => {
+  it('should sum the count list', () => {
     const totalCount = 3;
     const expected = [{
       totalCount,
@@ -40,5 +40,28 @@ describe('core.Delivery', () => {
     const result = DeliveryCore.buildTotalCount(mockDeliveries);
 
     expect(result).toStrictEqual(expected);
-  })
+  });
+
+  it('should build the response', () => {
+    const totalCount = 1;
+    const key = 'key';
+    const createdAt = new Date();
+    const randomKey = Math.random();
+
+    const deliveries = [{
+      totalCount,
+      key,
+      createdAt,
+      randomKey,
+    }];
+    const expected = [{
+      totalCount,
+      key,
+      createdAt,
+    }];
+
+    const result = DeliveryCore.buildResponse(deliveries);
+
+    expect(result).toStrictEqual(expected);
+  });
 });
