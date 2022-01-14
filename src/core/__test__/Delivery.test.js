@@ -1,4 +1,9 @@
 import DeliveryCore from '../Delivery';
+import { DeliveryValidator } from '../../validators';
+import { DeliveryCollection } from '../../database';
+
+jest.mock('../../validators/Delivery');
+jest.mock('../../database/Delivery');
 
 
 describe('core.Delivery', () => {
@@ -12,6 +17,10 @@ describe('core.Delivery', () => {
     ...mockDelivery,
     totalCount: 20
   }];
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('should filter by min count', () => {
     const mockMinCount = 20;
@@ -63,5 +72,45 @@ describe('core.Delivery', () => {
     const result = DeliveryCore.buildResponse(deliveries);
 
     expect(result).toStrictEqual(expected);
+  });
+
+  it('should throw an error when call Delivery.getDeliveries', async () => {
+    const mockReq = { body: {} };
+    expect(async() => DeliveryCore.getDeliveries(mockReq)).rejects.toThrow();
+  });
+
+  it.only('should pass by all internal methods and call buildResponse', async () => {
+    const startDate = 1;
+    const endDate = 1;
+    const minCount = 1;
+    const maxCount = 1;
+    const mockReq = {
+      minCount,
+      maxCount,
+      startDate,
+      endDate,
+    };
+    const value = {
+      minCount,
+      maxCount,
+      startDate,
+      endDate,
+    }
+
+    const deliveries = [mockDelivery];
+
+    DeliveryValidator.post.mockReturnValueOnce({ error: null, value });
+    DeliveryCollection.getByStartDate.mockReturnValueOnce(deliveries);
+    DeliveryCore.buildTotalCount = jest.fn();
+    DeliveryCore.filterByMinCount = jest.fn();
+    DeliveryCore.filterByMaxCount = jest.fn();
+    DeliveryCore.buildResponse = jest.fn();
+
+    await DeliveryCore.getDeliveries(mockReq);
+
+    expect(DeliveryCore.buildTotalCount).toBeCalled();
+    expect(DeliveryCore.filterByMinCount).toBeCalled();
+    expect(DeliveryCore.filterByMaxCount).toBeCalled();
+    expect(DeliveryCore.buildResponse).toBeCalled();
   });
 });
