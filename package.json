@@ -25,6 +25,8 @@
     "dev": "nodemon --exec npm run babel-node -- src/server.js",
     "build": "babel src --ignore __tests__,__mocks__ -d dist",
     "start": "node dist/server.js",
-    "test": "jest --forceExit"
+    "test": "jest --forceExit",
+    "coverage": "jest --coverage --forceExit",
+    "dev:coverage": "jest --watch --coverage"
   }
 }
