@@ -60,3 +60,4 @@ git push heroku master
 - Validate startDate & endDate
     - endDate should be greater than startDate
 - Improve the test coverage
+- Make a deployment after every merge on master via GitActions
