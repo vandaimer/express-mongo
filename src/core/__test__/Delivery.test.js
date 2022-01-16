@@ -2,7 +2,6 @@ import DeliveryCore from '../Delivery';
 import { DeliveryValidator } from '../../validators';
 import { DeliveryCollection } from '../../database';
 
-jest.mock('../../validators/Delivery');
 jest.mock('../../database/Delivery');
 
 
@@ -17,6 +16,10 @@ describe('core.Delivery', () => {
     ...mockDelivery,
     totalCount: 20
   }];
+  const startDate = 1;
+  const endDate = 1;
+  const minCount = 1;
+  const maxCount = 1;
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -75,15 +78,16 @@ describe('core.Delivery', () => {
   });
 
   it('should throw an error when call Delivery.getDeliveries', async () => {
+    const mockValue = { startDate, endDate, minCount, maxCount };
+    const mockMessage = 'I am a fake error';
+    const mockError = { message: mockMessage };
     const mockReq = { body: {} };
-    expect(async() => DeliveryCore.getDeliveries(mockReq)).rejects.toThrow();
+    DeliveryValidator.post = jest.fn().mockReturnValueOnce({ error: mockError, value: { ...mockValue } });
+
+    expect(async() => DeliveryCore.getDeliveries(mockReq)).rejects.toThrow(mockMessage);
   });
 
-  it.only('should pass by all internal methods and call buildResponse', async () => {
-    const startDate = 1;
-    const endDate = 1;
-    const minCount = 1;
-    const maxCount = 1;
+  it('should pass by all internal methods and call buildResponse', async () => {
     const mockReq = {
       minCount,
       maxCount,
