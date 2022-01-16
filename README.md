@@ -1,6 +1,6 @@
 # Express + MongoDB
 
-Retrive deliveries by:
+Retrieve deliveries by:
 
 - startDate
 - endDate
@@ -36,8 +36,8 @@ git push heroku master
 
 # Endpoints
 
-- `GET http://localhost/healthz`
-- `POST http://localhost/api/delivery`
+- `GET http://localhost:3000/healthz`
+- `POST http://localhost:3000/api/delivery`
     - payload:
     ```json
         {
